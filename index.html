@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lovey May Tanong Ako 💌</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffd6e7, #fff1f7);
+  overflow: hidden;
+}
+
+.container {
+  width: 92%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.envelope {
+  width: 280px;
+  height: 180px;
+  background: #ff6f91;
+  margin: 0 auto 25px;
+  position: relative;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 15px 30px rgba(0,0,0,.15);
+}
+
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-top: 100px solid #ff8fab;
+  z-index: 2;
+}
+
+.heart {
+  position: absolute;
+  top: 65px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 45px;
+  z-index: 3;
+}
+
+.message {
+  display: none;
+  background: white;
+  padding: 30px 20px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.15);
+}
+
+.message h1 {
+  color: #ff4f81;
+  font-size: 28px;
+}
+
+.message p {
+  color: #555;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.openBtn {
+  background: #ff4f81;
+  color: white;
+}
+
+.yes {
+  background: #35c759;
+  color: white;
+}
+
+.no {
+  background: #ff5252;
+  color: white;
+  position: relative;
+}
+
+#result {
+  display: none;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ff4081;
+  margin-top: 20px;
+}
+
+.emoji {
+  position: fixed;
+  font-size: 25px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(-50px) rotate(0deg);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div id="envelopeScreen">
+
+    <div class="envelope" onclick="openLetter()">
+      <div class="flap"></div>
+      <div class="heart">💌</div>
+    </div>
+
+    <h2>May sasabihin ako para sa'yo... 👀</h2>
+
+    <button class="openBtn" onclick="openLetter()">
+      Open 💌
+    </button>
+
+  </div>
+
+  <div class="message" id="message">
+
+    <h1>May itatanong ako... 🥺</h1>
+
+    <p>Ready ka na ba?</p>
+
+    <h1>Will you marry me? 💍❤️</h1>
+
+    <button class="yes" onclick="sayYes()">
+      YES ❤️
+    </button>
+
+    <button class="no" id="noButton"
+      onclick="escapeNo()">
+      NO ❌
+    </button>
+
+    <div id="result"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+function openLetter() {
+  document.getElementById("envelopeScreen").style.display = "none";
+  document.getElementById("message").style.display = "block";
+}
+
+function sayYes() {
+
+  const result = document.getElementById("result");
+
+  result.style.display = "block";
+
+  result.innerHTML =
+    "YEHEEEEY! 😭❤️💍<br><br>" +
+    "THANK YOU! 😂<br>" +
+    "<small>HAHAHAHA PRANK LANG! 🤣</small>";
+
+  confetti();
+}
+
+function escapeNo() {
+
+  const button = document.getElementById("noButton");
+
+  const maxX = window.innerWidth - button.offsetWidth - 20;
+  const maxY = window.innerHeight - button.offsetHeight - 20;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  button.style.position = "fixed";
+  button.style.left = x + "px";
+  button.style.top = y + "px";
+}
+
+function confetti() {
+
+  const emojis = ["❤️","💖","💍","🎉","🥳","💕","✨"];
+
+  for (let i = 0; i < 60; i++) {
+
+    const item = document.createElement("div");
+
+    item.className = "emoji";
+
+    item.innerText =
+      emojis[Math.floor(Math.random() * emojis.length)];
+
+    item.style.left =
+      Math.random() * 100 + "vw";
+
+    item.style.animationDelay =
+      Math.random() * 1.5 + "s";
+
+    document.body.appendChild(item);
+
+    setTimeout(() => {
+      item.remove();
+    }, 4000);
+  }
+}
+
+</script>
+
+</body>
+</html>
