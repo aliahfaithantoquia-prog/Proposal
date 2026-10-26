@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lovey May Tanong Ako 💌</title>
+<title>For You ❤️</title>
 
 <style>
 * {
@@ -17,25 +17,25 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ffd6e7, #fff1f7);
+  background: linear-gradient(135deg, #ffd1dc, #fff5f8);
   overflow: hidden;
 }
 
 .container {
   width: 92%;
-  max-width: 420px;
+  max-width: 430px;
   text-align: center;
 }
 
 .envelope {
   width: 280px;
   height: 180px;
-  background: #ff6f91;
+  background: #ff6b91;
   margin: 0 auto 25px;
   position: relative;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 15px 30px rgba(0,0,0,.15);
+  box-shadow: 0 15px 35px rgba(0,0,0,.18);
 }
 
 .flap {
@@ -46,8 +46,7 @@ body {
   height: 0;
   border-left: 140px solid transparent;
   border-right: 140px solid transparent;
-  border-top: 100px solid #ff8fab;
-  z-index: 2;
+  border-top: 100px solid #ff91aa;
 }
 
 .heart {
@@ -57,6 +56,22 @@ body {
   transform: translateX(-50%);
   font-size: 45px;
   z-index: 3;
+}
+
+.openBtn,
+.yes,
+.no {
+  border: none;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.openBtn {
+  background: #ff4f81;
+  color: white;
 }
 
 .message {
@@ -69,62 +84,50 @@ body {
 
 .message h1 {
   color: #ff4f81;
-  font-size: 28px;
-}
-
-.message p {
-  color: #555;
-  font-size: 18px;
-}
-
-button {
-  border: none;
-  padding: 14px 28px;
-  border-radius: 30px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  margin: 10px;
-}
-
-.openBtn {
-  background: #ff4f81;
-  color: white;
+  font-size: 30px;
 }
 
 .yes {
   background: #35c759;
   color: white;
+  margin: 10px;
 }
 
 .no {
   background: #ff5252;
   color: white;
+  margin: 10px;
   position: relative;
 }
 
 #result {
   display: none;
-  font-size: 22px;
+  margin-top: 25px;
+  color: #ff4f81;
+  font-size: 24px;
   font-weight: bold;
-  color: #ff4081;
-  margin-top: 20px;
 }
 
-.emoji {
+.angry {
   position: fixed;
-  font-size: 25px;
-  animation: fall 3s linear forwards;
+  font-size: 45px;
+  pointer-events: none;
+  animation: angryAnim .8s ease-out forwards;
 }
 
-@keyframes fall {
-  from {
-    transform: translateY(-50px) rotate(0deg);
+@keyframes angryAnim {
+  0% {
+    transform: scale(.5);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.3);
     opacity: 1;
   }
 
-  to {
-    transform: translateY(100vh) rotate(360deg);
+  100% {
+    transform: scale(1);
     opacity: 0;
   }
 }
@@ -142,7 +145,7 @@ button {
       <div class="heart">💌</div>
     </div>
 
-    <h2>May sasabihin ako para sa'yo... 👀</h2>
+    <h2>May something ako para sa'yo ❤️</h2>
 
     <button class="openBtn" onclick="openLetter()">
       Open 💌
@@ -150,20 +153,16 @@ button {
 
   </div>
 
+
   <div class="message" id="message">
 
-    <h1>May itatanong ako... 🥺</h1>
-
-    <p>Ready ka na ba?</p>
-
-    <h1>Will you marry me? 💍❤️</h1>
+    <h1>WILL YOU MARRY ME LOVEY? 💍❤️</h1>
 
     <button class="yes" onclick="sayYes()">
       YES ❤️
     </button>
 
-    <button class="no" id="noButton"
-      onclick="escapeNo()">
+    <button class="no" id="noButton" onclick="escapeNo()">
       NO ❌
     </button>
 
@@ -173,12 +172,16 @@ button {
 
 </div>
 
+
 <script>
 
 function openLetter() {
+
   document.getElementById("envelopeScreen").style.display = "none";
   document.getElementById("message").style.display = "block";
+
 }
+
 
 function sayYes() {
 
@@ -187,53 +190,72 @@ function sayYes() {
   result.style.display = "block";
 
   result.innerHTML =
-    "YEHEEEEY! 😭❤️💍<br><br>" +
-    "THANK YOU! 🥺<br>" +
-    "<small>I LOVE YOU SOOO MUCH</small>";
+    "THANK YOU LOVE LOVE ❤️🥰💍";
 
-  confetti();
+  for (let i = 0; i < 40; i++) {
+
+    const heart = document.createElement("div");
+
+    heart.className = "angry";
+    heart.innerHTML = "❤️";
+
+    heart.style.left =
+      Math.random() * 100 + "vw";
+
+    heart.style.top =
+      Math.random() * 100 + "vh";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 800);
+
+  }
+
 }
+
 
 function escapeNo() {
 
   const button = document.getElementById("noButton");
 
-  const maxX = window.innerWidth - button.offsetWidth - 20;
-  const maxY = window.innerHeight - button.offsetHeight - 20;
+  const maxX =
+    window.innerWidth - button.offsetWidth - 20;
 
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
+  const maxY =
+    window.innerHeight - button.offsetHeight - 20;
+
+  const x = Math.max(10, Math.random() * maxX);
+  const y = Math.max(10, Math.random() * maxY);
 
   button.style.position = "fixed";
   button.style.left = x + "px";
   button.style.top = y + "px";
-}
 
-function confetti() {
 
-  const emojis = ["❤️","💖","💍","🎉","🥳","💕","✨"];
+  // Angry reactions
+  for (let i = 0; i < 3; i++) {
 
-  for (let i = 0; i < 60; i++) {
+    const angry = document.createElement("div");
 
-    const item = document.createElement("div");
+    angry.className = "angry";
+    angry.innerHTML = "😡";
 
-    item.className = "emoji";
+    angry.style.left =
+      Math.random() * 90 + "vw";
 
-    item.innerText =
-      emojis[Math.floor(Math.random() * emojis.length)];
+    angry.style.top =
+      Math.random() * 80 + "vh";
 
-    item.style.left =
-      Math.random() * 100 + "vw";
-
-    item.style.animationDelay =
-      Math.random() * 1.5 + "s";
-
-    document.body.appendChild(item);
+    document.body.appendChild(angry);
 
     setTimeout(() => {
-      item.remove();
-    }, 4000);
+      angry.remove();
+    }, 800);
+
   }
+
 }
 
 </script>
